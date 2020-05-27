@@ -27,7 +27,7 @@ Figure Field::create_figure(int x, int y)
 {
     if (y >= 0 && y < 2)
     {
-        Figure fig(x, y, Types::ROOK, Colors::BLACK, Direction::DOWN);
+        Figure fig(x, y, Types::BISHOP, Colors::BLACK, Direction::DOWN);
         return fig;
     }
     else if (y >= 2 && y < 6)
@@ -37,7 +37,7 @@ Figure Field::create_figure(int x, int y)
     }
     else if (y >= 6 && y <= 7)
     {
-        Figure fig(x, y, Types::ROOK, Colors::WHITE, Direction::UP);
+        Figure fig(x, y, Types::BISHOP, Colors::WHITE, Direction::UP);
         return fig;
     }
         
@@ -126,19 +126,74 @@ std::vector<std::pair<int, int> > Field::possbly_moves(Figure fig)
         break;
 
     case BISHOP:
+        while (p_x < 7 && p_y > 0)
+        {
+            p_x++;
+            p_y--;
+            if (field[y][p_x].get_type() == Types::NONE)
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+            else 
+            {
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+                break;
+            }
+        }
+        p_x = x, p_y = y;
+
+        while (p_x < 7 && p_y < 7)
+        {
+            p_x++;
+            p_y++;
+            if (field[p_y][p_x].get_type() == Types::NONE)
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+            else 
+            {
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+                break;
+            }
+        }
+        p_x = x, p_y = y;
+
+        while (p_x > 0 && p_y < 7)
+        {
+            p_y++;
+            p_x--;
+            if (field[p_y][p_x].get_type() == Types::NONE)
+                possible_moves.push_back(std::make_pair(x, p_y));
+            else 
+            {
+                possible_moves.push_back(std::make_pair(x, p_y));
+                break;
+            }
+        }
+        p_x = x, p_y = y;
+
+        while (p_x < 7 && p_y > 0)
+        {
+           p_y--;
+           p_x++;
+           if (field[p_y][p_x].get_type() == Types::NONE)
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+            else 
+            {
+                possible_moves.push_back(std::make_pair(p_x, p_y));
+                break;
+            }
+        }
+        p_x = x, p_y = y;
         break;
 
     case ROOK:       
-        while (p_x < 6)
+        while (p_x < 7)
         {
             p_x++;
             if (field[y][p_x].get_type() == Types::NONE)
                 possible_moves.push_back(std::make_pair(p_x, y));
             else 
-                {
-                    possible_moves.push_back(std::make_pair(p_x, y));
-                    break;
-                }
+            {
+                possible_moves.push_back(std::make_pair(p_x, y));
+                break;
+            }
         }
         p_x = x, p_y = y;
 
@@ -148,23 +203,23 @@ std::vector<std::pair<int, int> > Field::possbly_moves(Figure fig)
             if (field[y][p_x].get_type() == Types::NONE)
                 possible_moves.push_back(std::make_pair(p_x, y));
             else 
-                {
-                    possible_moves.push_back(std::make_pair(p_x, y));
-                    break;
-                }
+            {
+                possible_moves.push_back(std::make_pair(p_x, y));
+                break;
+            }
         }
         p_x = x, p_y = y;
 
-        while (p_y < 6)
+        while (p_y < 7)
         {
             p_y++;
             if (field[p_y][x].get_type() == Types::NONE)
                 possible_moves.push_back(std::make_pair(x, p_y));
             else 
-                {
-                    possible_moves.push_back(std::make_pair(x, p_y));
-                    break;
-                }
+            {
+                possible_moves.push_back(std::make_pair(x, p_y));
+                break;
+            }
         }
         p_x = x, p_y = y;
 
@@ -174,10 +229,10 @@ std::vector<std::pair<int, int> > Field::possbly_moves(Figure fig)
            if (field[p_y][x].get_type() == Types::NONE)
                 possible_moves.push_back(std::make_pair(x, p_y));
             else 
-                {
-                    possible_moves.push_back(std::make_pair(x, p_y));
-                    break;
-                }
+            {
+                possible_moves.push_back(std::make_pair(x, p_y));
+                break;
+            }
         }
         p_x = x, p_y = y;
 

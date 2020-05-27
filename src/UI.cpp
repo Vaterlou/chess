@@ -85,8 +85,6 @@ void ManagementInterface::attack_figure(Field &field, int x, int y,  int new_x, 
             matrix[y][x].set_position(std::make_pair(new_x, new_y));
             matrix[new_y][new_x] = matrix[y][x];
 
-            matrix[new_y][new_x] = matrix[y][x];
-
             Figure empty_cell(x, y, Types::NONE, Colors::NONE_COLOR, Direction::NONE_DIRECT);
             matrix[y][x] = empty_cell;
             field.update_field(matrix);
